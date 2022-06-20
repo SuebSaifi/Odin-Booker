@@ -1,0 +1,8 @@
+<div class="container">
+<%= form_with(url:"/flights",method: :get , local: true) do |f| %>
+<%f.label "From:"%>
+<%f.collection_select(:from_airport_id,Airport.all, :id, :code,{}) %>
+<%f.label "To:"%>
+<%f.collection_select(:to_airport_id,Airport.all, :id, :code,{}) %>
+<% end %>
+</div>
