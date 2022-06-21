@@ -16,7 +16,7 @@ end
 
 airports =Airport.all.to_a.permutation(2).to_a
 airports.sample(5).each do |id|
-    departure = Faker::Time.between(from: DateTime.now, to: 7.days.from_now,format: :short)
+    departure = Faker::Time.between(from: DateTime.now.utc, to: 7.days.from_now,format: :short)
     arrival = Faker::Time.between(from: departure, to: DateTime.parse(departure)+17.hours ,format: :short)
     Flight.create(from_airport: id[0], to_airport: id[1], arrival_time: arrival, departure_time: departure)
 end 

@@ -1,0 +1,17 @@
+<div class="container w-25 mt-5 shadow bg-dark rounded form-borde ">
+<div class="my-3">
+<%@flights.each do |flight|%>
+<span class="d-flex justify-content-around mt-2  ">
+<p class="text-white">
+From : <%=flight.from_airport.code %>
+</p>
+<p class="text-white">
+To : <%=flight.to_airport.code%>
+</p>
+<p class="text-white">
+<%=flight.departure_time%>
+</p>
+</span>
+<%end%>
+</div>
+</div>

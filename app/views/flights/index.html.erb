@@ -1,5 +1,5 @@
 <div class="container mt-5 shadow bg-white rounded form-border text-monospace">
-<%= form_with(url:"/flights",method: :get , local: true) do |f| %>
+<%= form_with(url:"/flights",method: "get" , local: true) do |f| %>
 <div class="list-group d-flex flex-lg-column w-100 pt-4 mb-4 ml-2 flex-column flex-md-row mt-5 pb-lg-5">
 <%=f.label "From:"%>
 <%=f.collection_select(:from_airport_id,Airport.all, :id, :code,{} ,class:"list-group-item list-group-item-success w-100 ml-lg-3 mb-4 mb-lg-0 col-lg-5 mr-lg-5 text-monospace") %>
@@ -9,7 +9,7 @@
 <%=f.label "No of seats:"%>
 <%=f.number_field(:passanger, in: 1..4, step: 1,value:1 ,class:"w-100 numbers  ml-lg-3 mb-4 mb-lg-0 col-lg-5 mr-lg-5 ")%>
 <%=f.label "Flight Date:"%>
-      <%= f.select(:departure_time, Flight.pluck(:departure_time).map { |a| [a.strftime("%A, %d %b %Y"), a.to_date]}.uniq, {}, { "type": "date", "class" => "w-100 numbers mb-5 mb-lg-0 col-lg-4 h-75 ml-lg-3 text-monospace" })%>
+      <%= f.select(:departure_time, Flight.pluck(:departure_time).uniq, {}, { "type": "date", "class" => "w-100 numbers mb-5 mb-lg-0 col-lg-4 h-75 ml-lg-3 text-monospace" })%>
  <div class="w-100 d-flex justify-content-center align-items-center mt-5 pb-5">
       <%= f.submit "Search for Flights", :class => "btn btn-outline-success w-50 text-black text-color-7 col-lg-2" %>
     </div>
@@ -17,7 +17,7 @@
 </div>
 <div class = "container">
 <% unless @flights.empty?%>
-<%form_with(url: "/bookings/new/",method:"get",local: true) do |f|%>
+<%=form_with(url: "bookings/new/",method:"get",local: true) do |f|%>
 <%= hidden_field_tag(:passengers, params[:passengers]) %>
       <% @flights.each do |flight| %>
         <table class="w-75 text-white container">
@@ -39,16 +39,16 @@
                 <td><%= distance_of_time_in_words(b.object.departure_time, b.object.arrival_time, scope: 'datetime.distance_in_words.short') %></td>
                 <% end %>
               </td>
-            </tr>
+            </tr> 
         </table>
       <% end %>
       <div class="w-100 d-flex justify-content-center align-items-center">
-        <%= f.submit "Book Flight", :class => "btn btn-outline-success w-50 text-white color-3 col-lg-2 shadow mt-5" %>
+        <%= f.submit "Book Flight", :class => "btn btn-outline-success w-50 text-dark color-3 col-lg-2 shadow mt-5" %>
       </div>
     <% end %>
     <%else%>
-    <%if params[:commit]%>
-         <p class="text-center text-dark mt-5 mb-3" style="font-size: 1.9rem">No available flights</p>
-    <%end%>
+      <%if params[:commit]%>
+           <p class="text-center text-dark mt-5 mb-3" style="font-size: 1.9rem">No available flights</p>
+      <%end%>
 <%end%>
 </div>
